@@ -3,14 +3,19 @@ package types
 import "time"
 
 const (
-	MessageTypeRegister    = "register"
+	// MessageTypeRegister asks the server to register or refresh an app on a client connection.
+	MessageTypeRegister = "register"
+	// MessageTypeRegisterAck acknowledges a register request.
 	MessageTypeRegisterAck = "register-ack"
-	MessageTypeRequest     = "request"
-	MessageTypeResponse    = "response"
-	MessageTypeError       = "error"
+	// MessageTypeRequest carries a proxied HTTP request from server to client.
+	MessageTypeRequest = "request"
+	// MessageTypeResponse carries a proxied HTTP response from client to server.
+	MessageTypeResponse = "response"
+	// MessageTypeError carries a protocol-level error.
+	MessageTypeError = "error"
 )
 
-// AppRegistration is a shared wire-level representation of a registered app.
+// AppRegistration is the shared wire-level representation of an app known to the client.
 type AppRegistration struct {
 	AppName        string    `json:"app_name"`
 	TargetURL      string    `json:"target_url"`
@@ -24,7 +29,7 @@ type AppRegistration struct {
 	UpdatedAt      time.Time `json:"updated_at"`
 }
 
-// ConnectMessage is sent between the client and server over the websocket tunnel.
+// ConnectMessage is the common websocket message envelope exchanged between client and server.
 type ConnectMessage struct {
 	Type       string              `json:"type"`
 	RequestID  string              `json:"request_id,omitempty"`
@@ -41,7 +46,7 @@ type ConnectMessage struct {
 	Message    string              `json:"message,omitempty"`
 }
 
-// TunnelRequest is the server-side request shape forwarded to a connected client.
+// TunnelRequest is the request shape forwarded from the server to a connected client.
 type TunnelRequest struct {
 	Type       string              `json:"type"`
 	RequestID  string              `json:"request_id,omitempty"`
@@ -52,7 +57,7 @@ type TunnelRequest struct {
 	BodyBase64 string              `json:"body_base64,omitempty"`
 }
 
-// TunnelResponse is the client-to-server response shape for proxied requests.
+// TunnelResponse is the response shape sent from a client back to the server for a proxied request.
 type TunnelResponse struct {
 	Type       string              `json:"type"`
 	RequestID  string              `json:"request_id,omitempty"`
