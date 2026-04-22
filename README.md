@@ -26,3 +26,23 @@ Its purpose is to let the server and client share protocol definitions without m
 ## Goal
 
 Keep `github.com/portflare/server` and `github.com/portflare/client` independent while giving both a stable place for shared wire contracts.
+
+## Release and tagging
+
+This repository is set up to use Release Please for automatic version PRs and tags.
+
+Expected workflow:
+
+- merge conventional commits into `main` or `master`
+- Release Please opens or updates a release PR
+- merging that release PR creates the version tag and GitHub release
+
+Recommended commit prefixes include:
+
+- `feat:` for new protocol surface
+- `fix:` for protocol corrections
+- `docs:` for documentation-only changes
+- `test:` for test-only changes
+- `refactor:` for internal reshaping without protocol behavior changes
+
+When `server` and `client` start consuming published protocol versions, tag releases here first and then update those repositories to the new protocol version.
